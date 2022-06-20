@@ -13,6 +13,11 @@
 !build.sc
 !README.md
 build/
+chisel_out/
+digital/
+playground/
+build.sc
+.scalafmt.conf
 
 # mill
 out/
