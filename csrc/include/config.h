@@ -1,0 +1,12 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+
+#define CONFIG_TRACE
+#define CONFIG_MEM_SIZE 0x08000000ul
+#define RESET_VECTOR 0x80000000l
+#define CONFIG_MEM_BASE 0x80000000ul
+#define CONFIG_ITRACE
+#define CONFIG_MTRACE
+// #define CONFIG_DIFFTEST
+#define CONFIG_IRING_TRACE
+#endif // __CONFIG_H__
