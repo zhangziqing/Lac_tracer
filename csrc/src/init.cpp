@@ -14,7 +14,7 @@ char *difftest_file;
 char *elf_file;
 FILE *log_fp;
 char default_vcd_file[] = "build/vcd_dump.vcd";
-char tri_tuple[] = "riscv64-pc-linux-gnu";
+char tri_tuple[] = "loongarch64-pc-linux";
 VerilatedContext *contextp;
 VerilatedVcdC * fp;
 Vtop *top;
