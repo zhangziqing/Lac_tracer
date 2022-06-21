@@ -3,7 +3,7 @@
 #include <memory/memory.h>
 #include <dlfcn.h>
 #include <debug.h>
-#include <isa/riscv64.h>
+#include <isa/loongArch.h>
 
 extern CPU_State cpu_state;
 extern NPC_State npc_state;
