@@ -2,7 +2,7 @@
 #include <debug.h>
 #include <common.h>
 #include <memory/memory.h>
-#include <isa/riscv64.h>
+#include <isa/loongArch.h>
 
 uintptr_t get_sym_addr(const char* name,bool *status);
 
