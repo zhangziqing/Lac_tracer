@@ -5,7 +5,7 @@
 #include <log.h>
 #include <npc.h>
 #include <memory/memory.h>
-#include <isa/loogArch.h>
+#include <isa/loongArch.h>
 
 
 static int is_batch_mode = false;

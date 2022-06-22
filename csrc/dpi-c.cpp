@@ -1,19 +1,17 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
-#include "Vtop.h"
 #include "npc.h"
 #include "common.h"
 extern "C" {
 #include "memory/memory.h"
 #include "difftest.h"
 }
-#include "verilator-def.h"
 
 extern CPU_State cpu_state; 
 extern NPC_State npc_state;
-void trap(int inst,long long res){
+void trap(int inst,int res){
     //printf("immj = %x\n" , immj);
-    if (inst == 0x100073){
+    if (inst == 0x80000000){
     #ifdef CONFIG_DIFFTEST
         difftest_skip_ref();
     #endif        
@@ -21,22 +19,22 @@ void trap(int inst,long long res){
     }
 }
 
-void print(int inst,long long pc){
+void print(int inst,int pc){
     //printf("inst = 0x%08x,pc = 0x%016llx\n", inst, pc);
     npc_state.pc = pc;
     npc_state.inst = inst;
     cpu_state.pc = pc;
 }
-void reg_update(long long data, int index){
+void reg_update(int data, int index){
     cpu_state.gpr[index] = data;
 }
-void dpi_pmem_read(long long* data, long long addr, svBit en, const svBitVecVal* rd_size){
+void dpi_pmem_read(int* data, int addr, svBit en, const svBitVecVal* rd_size){
     if (en){
-        *data = (long long)pmem_read(addr,*rd_size);
+        *data = (int)pmem_read(addr,4);
     }
 }
-void dpi_pmem_write(long long data, long long addr, svBit en, const svBitVecVal* wr_size){
+void dpi_pmem_write(int data, int addr, svBit en, const svBitVecVal* wr_size){
     if (en){
-        pmem_write((word_t)addr, *wr_size, data);
+        pmem_write((word_t)addr, *wr_size, 4);
     }
 }

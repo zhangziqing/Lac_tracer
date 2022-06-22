@@ -7,7 +7,7 @@
 #include <difftest.h>
 #include <verilator-def.h>
 #include <string>
-char *img_file;
+char *img_file = NULL;
 char *log_file;
 char *vcd_file;
 char *difftest_file;

@@ -20,7 +20,7 @@ static word_t host_read(uint8_t* addr, int len ){
         case 4: return *(uint32_t *)addr;break;
         case 8: return *(uint64_t *)addr;break;
         default:
-            panic("Invaild length");
+            panic("Invaild length,0x%lx,0x%lx,0x%lx,0x%x",CONFIG_MEM_BASE,CONFIG_MEM_BASE + CONFIG_MEM_SIZE,(uint64_t)addr,len);
     }
     return 0;
 }
@@ -75,7 +75,7 @@ size_t read_inst(char *img_file) {
           0x00000297,  // auipc t0,0
           0x0002b823,  // sd  zero,16(t0)
           0x0102b503,  // ld  a0,16(t0)
-          0x00100073,  // ebreak (used as nemu_trap)
+          0x80000000,  // ebreak (used as npc_trap)
           0xdeadbeef,  // some data
         };
         memcpy(mem,img,sizeof(img));

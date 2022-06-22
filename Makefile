@@ -17,8 +17,8 @@ INC_PATH := $(abspath ./csrc/include/)
 SRC_AUTO_BIND=$(abspath $(BUILD_DIR)/auto_bind.cpp)
 CFLAGS += $(addprefix -I, $(INC_PATH))  -MMD -Wall -Werror #-fsanitize=address
 SDBLIB=$(abspath ./lib)/libsdb.a
-CXXFLAGS += $(shell llvm-config --cxxflags)
-LIBS += $(shell llvm-config --libs) -lreadline -ldl
+CXXFLAGS =
+LIBS +=  -lreadline -ldl
 VERILATING_FLAG = -W
 
 DIFFTEST_SO = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
