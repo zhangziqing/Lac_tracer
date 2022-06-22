@@ -24,15 +24,8 @@ static word_t host_read(uint8_t* addr, int len ){
     }
     return 0;
 }
-static void host_write(uint8_t* addr, int len, word_t data){
-    switch (len){
-        case 1: *(uint8_t *)addr = data;return;
-        case 2: *(uint16_t*)addr = data;return;
-        case 4: *(uint32_t*)addr = data;return;
-        case 8: *(uint64_t*)addr = data;return;
-        default:
-            panic("Invalid length");
-    }
+static void host_write(uint8_t* addr, int mask, word_t data){
+    *(uint32_t*)addr = (*(uint32_t*)addr & ~mask) |  (data & mask);
 }
 word_t pmem_read(paddr_t addr, int len){
 #ifdef CONFIG_MTRACE
@@ -46,7 +39,7 @@ word_t pmem_read(paddr_t addr, int len){
 }
 void pmem_write(paddr_t addr, int len, word_t data){
 #ifdef CONFIG_MTRACE
-    log_write("Write Addr:%lx,size:%d,write:%lx\n", addr, len, data);
+    log_write("Write Addr:%lx,mask:%x,write:%lx\n", addr, len, data);
 #endif
     if(!out_of_bound(addr)){
         host_write(guest_to_host(addr), len, data);

@@ -28,13 +28,20 @@ void print(int inst,int pc){
 void reg_update(int data, int index){
     cpu_state.gpr[index] = data;
 }
-void dpi_pmem_read(int* data, int addr, svBit en, const svBitVecVal* rd_size){
+void dpi_pmem_read(int* data, int addr, svBit en){
     if (en){
         *data = (int)pmem_read(addr,4);
     }
 }
-void dpi_pmem_write(int data, int addr, svBit en, const svBitVecVal* wr_size){
+void dpi_pmem_write(int data, int addr, svBit en, const svBitVecVal* wr_mask){
     if (en){
-        pmem_write((word_t)addr, *wr_size, 4);
+        uint32_t mask = 0;
+        for (int i = 3; i >= 0; i-- ){
+            mask = mask << 8;
+            if(*wr_mask & (1 << i)){
+                mask = mask | 0xff; 
+            }
+        }
+        pmem_write((word_t)addr, mask, data);
     }
 }
