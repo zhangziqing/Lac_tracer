@@ -261,7 +261,7 @@ word_t static tokens_eval(int p, int q, int *status)
       }
     case TK_IDENT:
       data = get_sym_addr(tokens[p].str, &sub_status);
-      if (sub_status){
+      if (!sub_status){
         *status = E_NORMAL;
         return data;
       } else {

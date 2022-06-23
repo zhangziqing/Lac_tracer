@@ -110,31 +110,34 @@ void init_elf_resolve(const char * file){
     FILE *fp = fopen(file,"r");
     Assert(fp != NULL, "cannot open file %s",file);
     Log("Open elf file %s",file);
-    Elf64_Ehdr elfHdr;
-    status = fread(&elfHdr, sizeof(Elf64_Ehdr), 1, fp);
+    Elf32_Ehdr elfHdr;
+    status = fread(&elfHdr, sizeof(Elf32_Ehdr), 1, fp);
 
     if (status == 0){
         printf("error\n");
+        exit(-1);
     }
     fseek(fp, elfHdr.e_shoff, SEEK_SET);
-    Elf64_Shdr sym_shdr;
-    Elf64_Off symtab_off = 0, strtab_off = 0;
-    Elf64_Shdr *shdr_ptr = &sym_shdr;
+    Elf32_Shdr sym_shdr;
+    Elf32_Off symtab_off = 0, strtab_off = 0;
+    Elf32_Shdr *shdr_ptr = &sym_shdr;
     uint64_t symtab_sz = 0,strtab_sz,symtab_ent_sz = 0;
     char *strtab = NULL;
-    Elf64_Sym * symtab = NULL;
+    Elf32_Sym * symtab = NULL;
     int cond = 0;
     int index = 0;
     while(cond < 2){
-        status = fread(shdr_ptr, sizeof(Elf64_Shdr), 1, fp);
+        status = fread(shdr_ptr, sizeof(Elf32_Shdr), 1, fp);
         if (status == 0){
             printf("error\n");
+            Log("");
+            exit(-1);
         }
         if (shdr_ptr->sh_type == SHT_SYMTAB){
             symtab_off = shdr_ptr->sh_offset;
             symtab_sz = shdr_ptr->sh_size;
             symtab_ent_sz = shdr_ptr->sh_entsize;
-            symtab = (Elf64_Sym*)malloc(shdr_ptr->sh_size);
+            symtab = (Elf32_Sym*)malloc(shdr_ptr->sh_size);
             ++cond;
         }else if (shdr_ptr->sh_type == SHT_STRTAB){
             if(index != elfHdr.e_shstrndx){
