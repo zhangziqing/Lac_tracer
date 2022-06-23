@@ -19,7 +19,7 @@ void trap(int inst,int res){
     }
 }
 
-void print(int inst,int pc){
+void npc_update(int inst,int pc){
     //printf("inst = 0x%08x,pc = 0x%016llx\n", inst, pc);
     npc_state.pc = pc;
     npc_state.inst = inst;

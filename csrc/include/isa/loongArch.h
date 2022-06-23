@@ -9,6 +9,7 @@ void isa_reg_display();
 
 word_t isa_reg_str2val(const char *s, bool *success);
 bool isa_check_regs(CPU_State *);
+const char *reg_2_str(int i);
 #ifdef __cplusplus
 }
 #endif

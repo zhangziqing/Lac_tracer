@@ -65,7 +65,7 @@ void vaddr_write(vaddr_t addr, int len, word_t data){
 size_t read_inst(char *img_file) {
     if (img_file == NULL) {
         static const uint32_t img [] = {
-          0x00000297,  // auipc t0,0
+          0x00100000,  // auipc t0,0
           0x0002b823,  // sd  zero,16(t0)
           0x0102b503,  // ld  a0,16(t0)
           0x80000000,  // ebreak (used as npc_trap)

@@ -41,3 +41,7 @@ bool isa_check_regs(CPU_State *ref) {
    }
    return true;
 }
+const char *reg_2_str(int i){
+  if (i >= 0 && i < 32)return regs[i];
+  return NULL;
+}
