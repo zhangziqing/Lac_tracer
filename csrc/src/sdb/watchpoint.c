@@ -71,7 +71,7 @@ inline static bool check_single_watchpoint(WP* p){
   if (status && res == p->val){
     return true;
   }
-  printf("[%s] = %lx\n",p->expr,res);
+  printf("[%s] = %x\n",p->expr,res);
   p->val = res; 
   return false;
 }

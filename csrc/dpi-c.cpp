@@ -1,4 +1,5 @@
 #include "svdpi.h"
+#include "verilated_dpi.h"
 #include "Vtop__Dpi.h"
 #include "npc.h"
 #include "common.h"
@@ -25,11 +26,17 @@ void npc_update(int inst,int pc){
     npc_state.inst = inst;
     cpu_state.pc = pc;
 }
-void reg_update(int data, int index){
-    cpu_state.gpr[index] = data;
+void reg_connect(const svOpenArrayHandle r){
+    cpu_state.gpr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 void dpi_pmem_read(int* data, int addr, svBit en){
     if (en){
+        *data = (int)pmem_read(addr,4);
+    }
+}
+void dpi_pmem_fetch(int* data, int addr, svBit en){
+    if (en){
+        printf("fetch");
         *data = (int)pmem_read(addr,4);
     }
 }

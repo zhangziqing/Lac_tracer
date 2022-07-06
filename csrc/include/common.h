@@ -7,9 +7,9 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef uint64_t word_t;
-typedef uint64_t paddr_t;
-typedef uint64_t vaddr_t;
+typedef uint32_t word_t;
+typedef uint32_t paddr_t;
+typedef uint32_t vaddr_t;
 
 typedef struct 
 {
@@ -21,7 +21,7 @@ typedef struct
 }NPC_State;
 typedef struct
 {
-    word_t gpr[32];
+    word_t* gpr;
     word_t pc;
 }CPU_State;
 enum

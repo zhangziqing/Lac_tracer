@@ -57,7 +57,7 @@ static void free_bp_by_point(BP *bp){
 void info_breakpoint(){
     BP* bp = _head;
     while (bp != NULL){
-        printf("%d:\t:%lx",bp->NO,bp->address);
+        printf("%d:\t:%x",bp->NO,bp->address);
         bp = bp->next;
     }
 }

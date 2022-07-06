@@ -236,15 +236,15 @@ word_t static tokens_eval(int p, int q, int *status)
     switch (tokens[p].type)
     {
     case TK_DECNUM:
-      sscanf(tokens[p].str, "%ld", &data);
+      sscanf(tokens[p].str, "%d", &data);
       *status = E_NORMAL;
       return data;
     case TK_OCTNUM:
-      sscanf(tokens[p].str, "%lo", &data);
+      sscanf(tokens[p].str, "%o", &data);
       *status = E_NORMAL;
       return data;
     case TK_HEXNUM:
-      sscanf(tokens[p].str, "%lx", &data);
+      sscanf(tokens[p].str, "%x", &data);
       *status = E_NORMAL;
       return data;
     case TK_REG:

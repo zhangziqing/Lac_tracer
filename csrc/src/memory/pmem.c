@@ -29,23 +29,23 @@ static void host_write(uint8_t* addr, int mask, word_t data){
 }
 word_t pmem_read(paddr_t addr, int len){
 #ifdef CONFIG_MTRACE
-    log_write("Read Addr:%lx,size:%d\n", addr, len);
+    log_write("Read Addr:%x,size:%d\n", addr, len);
 #endif
     if(!out_of_bound(addr)){
         return host_read(guest_to_host(addr), len);
     }
-    panic("out of bound\n");
+    safe_panic("out of bound\n");
     return 0;
 }
 void pmem_write(paddr_t addr, int len, word_t data){
 #ifdef CONFIG_MTRACE
-    log_write("Write Addr:%lx,mask:%x,write:%lx\n", addr, len, data);
+    log_write("Write Addr:%x,mask:%x,write:%x\n", addr, len, data);
 #endif
     if(!out_of_bound(addr)){
         host_write(guest_to_host(addr), len, data);
         return;
     }
-    panic("Memory out of bound");
+    safe_panic("Memory out of bound");
 }
 
 word_t pinst_fetch(paddr_t addr){
@@ -65,9 +65,9 @@ void vaddr_write(vaddr_t addr, int len, word_t data){
 size_t read_inst(char *img_file) {
     if (img_file == NULL) {
         static const uint32_t img [] = {
-          0x00100000,  // auipc t0,0
-          0x0002b823,  // sd  zero,16(t0)
-          0x0102b503,  // ld  a0,16(t0)
+          0x1c000003,  // pcaddu12i sp,0
+          0x28804064,  // ld  a0,16(sp)
+          0x29104060,  // sd  zero,16(sp)
           0x80000000,  // ebreak (used as npc_trap)
           0xdeadbeef,  // some data
         };

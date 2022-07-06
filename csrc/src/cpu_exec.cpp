@@ -53,7 +53,7 @@ void npc_step()
 	word_t pc = npc_state.pc;
 	memset(npc_state.log, '\0', sizeof(npc_state.log));
 	char *p = npc_state.log;
-	p += snprintf(p, sizeof(npc_state.log), "0x%016lx: ", pc);
+	p += snprintf(p, sizeof(npc_state.log), "0x%08x: ", pc);
 	uint8_t *inst = (uint8_t *)&npc_state.inst;
 	for (int i = 3; i >= 0; i--)
 		p += snprintf(p, sizeof(npc_state.log), "0x%02x ", inst[i]);

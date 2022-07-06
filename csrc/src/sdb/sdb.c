@@ -94,10 +94,10 @@ static int cmd_x(char *args){
   }
   const int num_p_line = 8; 
   for (int i = 0; i < (ibyte)/num_p_line+(ibyte%num_p_line!=0);i++){
-    printf("\033[1;32m0x%08lx:\033[0m",iaddr+i*num_p_line);
+    printf("\033[1;32m0x%08x:\033[0m",iaddr+i*num_p_line);
     for (int j = num_p_line*i;j < ibyte && j <num_p_line*i+num_p_line; j++){
       word_t content = vaddr_read(iaddr+j*4,4);
-      printf("0x%08lx  ",content);
+      printf("0x%08x  ",content);
     }
     printf("\n");
   }
@@ -124,7 +124,7 @@ static int cmd_xb(char *args){
   }
   const int num_p_line = 8; 
   for (int i = 0; i < (ibyte)/num_p_line+(ibyte%num_p_line!=0);i++){
-    printf("\033[1;32m0x%08lx:\033[0m",iaddr+i*num_p_line);
+    printf("\033[1;32m0x%08x:\033[0m",iaddr+i*num_p_line);
     for (int j = num_p_line*i;j < ibyte && j <num_p_line*i+num_p_line; j++){
       if(out_of_bound(iaddr+j)){
         printf(ASNI_FMT("addr out of bound", ASNI_BG_RED));
@@ -147,7 +147,7 @@ static int cmd_p (char * args){
   bool status;
   word_t res = expr(args,&status);
   if (status){
-    printf("%s: 0x%lx\n",args,res);
+    printf("%s: 0x%x\n",args,res);
   } else {
     printf("wrong experssion\n");
   }
@@ -158,7 +158,7 @@ static int cmd_pd (char * args){
   bool status;
   word_t res = expr(args,&status);
   if (status){
-    printf("%s: %ld\n",args,res);
+    printf("%s: %d\n",args,res);
   } else {
     printf("wrong experssion\n");
   }
@@ -216,7 +216,7 @@ static int cmd_b(char *args){
   }
   Assert(bp != NULL,"Bad status");
   bp->address = res;
-  printf("breakpoint on [%s:%lx]\n",args, res);
+  printf("breakpoint on [%s:%x]\n",args, res);
   return 0;
 }
 

@@ -12,7 +12,7 @@ const char *regs[] = {
 
 void isa_reg_display() {
 	for (int i = 0; i < 16; i++){
-		printf(ASNI_FMT("%4s", ASNI_FG_GREEN) ":0x%016lx\t" ASNI_FMT("%4s",ASNI_FG_GREEN)":0x%016lx\n",regs[i*2],cpu_state.gpr[i*2],regs[i*2+1],cpu_state.gpr[i*2+1]);
+		printf(ASNI_FMT("%4s", ASNI_FG_GREEN) ":0x%08x\t" ASNI_FMT("%4s",ASNI_FG_GREEN)":0x%08x\n",regs[i*2],cpu_state.gpr[i*2],regs[i*2+1],cpu_state.gpr[i*2+1]);
 	}
 }
 
