@@ -34,7 +34,7 @@ word_t pmem_read(paddr_t addr, int len){
     if(!out_of_bound(addr)){
         return host_read(guest_to_host(addr), len);
     }
-    safe_panic("out of bound\n");
+    panic("out of bound\n");
     return 0;
 }
 void pmem_write(paddr_t addr, int len, word_t data){
@@ -45,7 +45,7 @@ void pmem_write(paddr_t addr, int len, word_t data){
         host_write(guest_to_host(addr), len, data);
         return;
     }
-    safe_panic("Memory out of bound");
+    panic("Memory out of bound");
 }
 
 word_t pinst_fetch(paddr_t addr){
@@ -66,8 +66,9 @@ size_t read_inst(char *img_file) {
     if (img_file == NULL) {
         static const uint32_t img [] = {
           0x1c000003,  // pcaddu12i sp,0
-          0x28804064,  // ld  a0,16(sp)
-          0x29104060,  // sd  zero,16(sp)
+          0x28805064,  // ld  a0,16(sp)
+          0x29805060,  // sd  zero,16(sp)
+          0x02800004,  // addi.w a0,zero,0
           0x80000000,  // ebreak (used as npc_trap)
           0xdeadbeef,  // some data
         };
