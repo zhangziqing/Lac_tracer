@@ -10,6 +10,7 @@ extern "C" {
 
 extern CPU_State cpu_state; 
 extern NPC_State npc_state;
+const bool glo_en = 1;
 void trap(int inst,int res){
     //printf("immj = %x\n" , immj);
     if (inst == 0x80000000){
@@ -30,7 +31,7 @@ void reg_connect(const svOpenArrayHandle r){
     cpu_state.gpr = (uint32_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 void dpi_pmem_read(int* data, int addr, svBit en){
-    if (en){
+    if (glo_en && en && !npc_state.rst){
         *data = (int)pmem_read(addr,4);
     }
 }
@@ -41,7 +42,7 @@ void dpi_pmem_fetch(int* data, int addr, svBit en){
     }
 }
 void dpi_pmem_write(int data, int addr, svBit en, const svBitVecVal* wr_mask){
-    if (en){
+    if (en && glo_en){
         uint32_t mask = 0;
         for (int i = 3; i >= 0; i-- ){
             mask = mask << 8;

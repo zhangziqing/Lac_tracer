@@ -17,6 +17,7 @@ extern "C" void npc_step_half(int reset)
 {
 	int index = npc_state.global_time++;
 	top -> reset = reset;
+	npc_state.rst = reset;
 	if ((index % 2) == 0){
 		top -> clock = 0;
 		top->eval();

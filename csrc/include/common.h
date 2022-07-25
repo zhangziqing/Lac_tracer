@@ -17,6 +17,7 @@ typedef struct
     int global_time;
     int inst;
     word_t pc;
+    char rst;
     char log[128];
 }NPC_State;
 typedef struct
